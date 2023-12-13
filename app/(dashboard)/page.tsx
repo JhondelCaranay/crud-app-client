@@ -1,5 +1,6 @@
 "use client";
 
+import { Loader } from "@/components/Loader";
 import useCurrentUser from "@/components/hooks/useCurrentUser";
 import { isAxiosError } from "axios";
 import { redirect } from "next/navigation";
@@ -12,9 +13,8 @@ const Home = () => {
   }
 
   if (isFetching) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
-  console.log("🚀 ~ file: page.tsx:9 ~ Home ~ data:", user);
 
   return <div>Home</div>;
 };
