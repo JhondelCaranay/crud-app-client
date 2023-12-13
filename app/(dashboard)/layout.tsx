@@ -12,8 +12,10 @@ type Props = {
 const MainLayout = ({ children }: Props) => {
   const { data: user, error, isPending } = useCurrentUser();
 
-  if (isAxiosError(error) && error.response?.status === 401) {
-    redirect("/login");
+  if (isAxiosError(error)) {
+    if (error.response?.status === 401 || error.response?.status === 403) {
+      redirect("/login");
+    }
   }
 
   if (isPending) {

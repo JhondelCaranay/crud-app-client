@@ -8,9 +8,9 @@ type Props = {
   children: React.ReactNode;
 };
 const AuthLayout = ({ children }: Props) => {
-  const { data, isFetching } = useCurrentUser();
+  const { data, isPending } = useCurrentUser();
 
-  if (isFetching) {
+  if (isPending) {
     return <Loader />;
   }
 

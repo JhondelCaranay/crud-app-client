@@ -1,3 +1,4 @@
+import UpdateItemModal from "@/components/modal/item/UpdateItemModal";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -7,16 +8,25 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Item } from "@/queries/items";
 
-import { Archive, Copy, Eye, MoreHorizontal, Pencil } from "lucide-react";
+import { Archive, MoreHorizontal, Pencil } from "lucide-react";
 import { useState } from "react";
-import toast from "react-hot-toast";
 
 type Props = {
   data: Item;
 };
 const ActionCell = ({ data }: Props) => {
+  const [isUpdateModalOpen, setUpdateModal] = useState(false);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+
   return (
     <div className="flex justify-end">
+      {isUpdateModalOpen ? (
+        <UpdateItemModal
+          item={data}
+          isOpen={isUpdateModalOpen}
+          onClose={() => setUpdateModal(false)}
+        />
+      ) : null}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-4 w-8 p-0">
@@ -25,7 +35,7 @@ const ActionCell = ({ data }: Props) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setUpdateModal(true)}>
             <Pencil className="h-4 w-4 mr-2" />
             Edit
           </DropdownMenuItem>
