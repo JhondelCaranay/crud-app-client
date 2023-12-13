@@ -7,11 +7,11 @@ type User = {
   email: string;
 };
 
-const getCurrentUser = (): Promise<User[]> =>
+const getCurrentUser = (): Promise<User> =>
   api.get("auth/profile").then((response) => response.data);
 
 const useCurrentUser = () => {
-  const { data, error, isFetching } = useQuery({
+  const { data, error, isPending } = useQuery({
     queryKey: ["profile"],
     queryFn: getCurrentUser,
     retry: false, // Will retry failed requests 10 times before displaying an error
@@ -19,7 +19,7 @@ const useCurrentUser = () => {
 
   return {
     data,
-    isFetching,
+    isPending,
     error,
   };
 };

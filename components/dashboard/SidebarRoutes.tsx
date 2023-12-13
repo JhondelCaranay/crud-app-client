@@ -1,4 +1,4 @@
-import { PackageOpen } from "lucide-react";
+import { PackageOpen, User } from "lucide-react";
 import { SidebarItem } from "./SidebarItem";
 
 const routesList = [
@@ -6,6 +6,20 @@ const routesList = [
     icon: PackageOpen,
     label: "Item",
     href: "/",
+  },
+  {
+    icon: User,
+    label: "Profile",
+    href: "/profile",
+  },
+  {
+    icon: User,
+    label: "Logout",
+    href: "/logout",
+    onClick: () => {
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+    },
   },
 ];
 
@@ -19,6 +33,7 @@ const SidebarRoutes = () => {
             icon={route.icon}
             label={route.label}
             href={route.href}
+            onClick={route.onClick}
           />
         );
       })}
