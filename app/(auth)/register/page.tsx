@@ -27,7 +27,7 @@ import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { createUser } from "@/queries/register";
+import { createUser } from "@/queries/auth";
 
 const formSchema = z
   .object({

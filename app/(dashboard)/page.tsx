@@ -5,13 +5,17 @@ import { isAxiosError } from "axios";
 import { redirect } from "next/navigation";
 
 const Home = () => {
-  const { data, error } = useCurrentUser();
+  const { data: user, error, isFetching } = useCurrentUser();
 
   if (isAxiosError(error) && error.response?.status === 401) {
     redirect("/login");
   }
 
-  console.log("🚀 ~ file: page.tsx:5 ~ Home ~ user:", data);
+  if (isFetching) {
+    return <div>Loading...</div>;
+  }
+  console.log("🚀 ~ file: page.tsx:9 ~ Home ~ data:", user);
+
   return <div>Home</div>;
 };
 export default Home;
