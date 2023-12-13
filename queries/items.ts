@@ -27,3 +27,6 @@ export const createItem = (item: CreateItem): Promise<Item> =>
 
 export const updateItem = (item: UpdateItem, id: number): Promise<Item> =>
   api.patch(`items/${id}`, item).then((res) => res.data);
+
+export const deleteItem = (id: number): Promise<Item> =>
+  api.delete(`items/${id}`).then((res) => res.data);

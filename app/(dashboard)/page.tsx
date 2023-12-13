@@ -1,14 +1,11 @@
 "use client";
 
 import { Loader } from "@/components/Loader";
-import useCurrentUser from "@/components/hooks/useCurrentUser";
 import { DataTable } from "@/components/ui/DataTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { isAxiosError } from "axios";
 import { PlusCircle } from "lucide-react";
-import { redirect } from "next/navigation";
 import { useState } from "react";
 import { columns } from "./column";
 import { useQuery } from "@tanstack/react-query";
@@ -16,8 +13,6 @@ import { getItems } from "@/queries/items";
 import CreateItemModal from "@/components/modal/item/CreateItemModal";
 
 const Home = () => {
-  const { data: user, error, isPending } = useCurrentUser();
-
   const itemsQuery = useQuery({
     queryKey: ["items"],
     queryFn: getItems,
@@ -30,7 +25,7 @@ const Home = () => {
     return <div>Error...</div>;
   }
 
-  if (itemsQuery.isPending || isPending) {
+  if (itemsQuery.isPending) {
     return <Loader />;
   }
   return (

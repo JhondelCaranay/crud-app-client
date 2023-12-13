@@ -4,9 +4,9 @@ import { Loader } from "@/components/Loader";
 import useCurrentUser from "@/components/hooks/useCurrentUser";
 
 const ProfilePage = () => {
-  const { data, isFetching } = useCurrentUser();
+  const { data, isPending } = useCurrentUser();
 
-  if (isFetching || !data) {
+  if (isPending || !data) {
     return <Loader />;
   }
 

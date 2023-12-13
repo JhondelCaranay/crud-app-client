@@ -1,3 +1,4 @@
+import DeleteItemModal from "@/components/modal/item/DeleteItemModal";
 import UpdateItemModal from "@/components/modal/item/UpdateItemModal";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,7 +17,7 @@ type Props = {
 };
 const ActionCell = ({ data }: Props) => {
   const [isUpdateModalOpen, setUpdateModal] = useState(false);
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [isDeleteModalOpen, setDeleteModal] = useState(false);
 
   return (
     <div className="flex justify-end">
@@ -27,6 +28,11 @@ const ActionCell = ({ data }: Props) => {
           onClose={() => setUpdateModal(false)}
         />
       ) : null}
+      <DeleteItemModal
+        item={data}
+        isOpen={isDeleteModalOpen}
+        onClose={() => setDeleteModal(false)}
+      />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-4 w-8 p-0">
@@ -39,7 +45,10 @@ const ActionCell = ({ data }: Props) => {
             <Pencil className="h-4 w-4 mr-2" />
             Edit
           </DropdownMenuItem>
-          <DropdownMenuItem className="text-red-600 hover:!text-red-600 hover:!bg-red-100 ">
+          <DropdownMenuItem
+            className="text-red-600 hover:!text-red-600 hover:!bg-red-100"
+            onClick={() => setDeleteModal(true)}
+          >
             <Archive className="h-4 w-4 mr-2" />
             Delete
           </DropdownMenuItem>
