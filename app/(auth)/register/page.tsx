@@ -60,7 +60,6 @@ const RegisterPage = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(values);
 
     registerUser.mutate(values, {
       onSuccess: () => {
