@@ -11,8 +11,13 @@ import { columns } from "./column";
 import { useQuery } from "@tanstack/react-query";
 import { getItems } from "@/queries/items";
 import CreateItemModal from "@/components/modal/item/CreateItemModal";
+import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
+import PdfReport from "@/components/pdfReport";
+import useCurrentUser from "@/components/hooks/useCurrentUser";
 
 const Home = () => {
+  const { data, isPending } = useCurrentUser();
+
   const itemsQuery = useQuery({
     queryKey: ["items"],
     queryFn: getItems,
@@ -25,7 +30,7 @@ const Home = () => {
     return <div>Error...</div>;
   }
 
-  if (itemsQuery.isPending) {
+  if (itemsQuery.isPending || isPending) {
     return <Loader />;
   }
   return (
@@ -33,6 +38,24 @@ const Home = () => {
       <div className="flex justify-between items-center space-x-2 pb-4">
         <h1 className="text-xl font-bold">ITEM</h1>
         <div className="flex gap-4">
+          {/* <PDFViewer>
+            <PdfReport items={itemsQuery.data} />
+          </PDFViewer> */}
+          {data && (
+            <Button variant={"secondary"} asChild>
+              <PDFDownloadLink
+                document={
+                  <PdfReport items={itemsQuery.data} name={data.name} />
+                }
+                fileName={`${data.name}.pdf`}
+              >
+                {({ blob, url, loading, error }) =>
+                  loading ? "Loading document..." : "export to pdf"
+                }
+              </PDFDownloadLink>
+            </Button>
+          )}
+
           <Button
             variant="outline"
             size="sm"
