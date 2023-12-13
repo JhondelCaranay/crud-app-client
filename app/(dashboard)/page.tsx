@@ -13,6 +13,7 @@ import { useState } from "react";
 import { columns } from "./column";
 import { useQuery } from "@tanstack/react-query";
 import { getItems } from "@/queries/items";
+import CreateItemModal from "@/components/modal/item/CreateItemModal";
 
 const Home = () => {
   const { data: user, error, isPending } = useCurrentUser();
@@ -45,6 +46,12 @@ const Home = () => {
             <PlusCircle className="h-4 w-4 mr-2" />
             Add Item
           </Button>
+          {isCreateModalOpen ? (
+            <CreateItemModal
+              isOpen={isCreateModalOpen}
+              onClose={() => setCreateModalOpen(false)}
+            />
+          ) : null}
         </div>
       </div>
 

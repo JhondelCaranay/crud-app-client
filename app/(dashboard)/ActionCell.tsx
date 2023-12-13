@@ -26,10 +26,6 @@ const ActionCell = ({ data }: Props) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem>
-            <Copy className="mr-2 h-4 w-4" /> Copy Id
-          </DropdownMenuItem>
-
-          <DropdownMenuItem>
             <Pencil className="h-4 w-4 mr-2" />
             Edit
           </DropdownMenuItem>
